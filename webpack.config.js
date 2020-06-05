@@ -1,15 +1,18 @@
 const path = require('path');
  module.exports = {
+  mode: 'development',
     // define entry file and output
    entry: './src/index.js',
    output: {
        path: path.resolve('dist'),
-       filename: 'main.js'
+       filename: 'main.js',
+       publicPath: '/'
    },
    devServer: {
-    // contentBase:  path.resolve('dist'),
+    //  contentBase:  path.resolve('dist'),
     compress: true,
-    port: 5000
+    port: 5000,
+    historyApiFallback: true  
   },
    // define babel loader
    module: {

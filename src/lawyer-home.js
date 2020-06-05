@@ -5,7 +5,7 @@ import {
 } from "./components";
 import { instance } from "./utils";
 
-export default function Schedules() {
+export default function LawyerHome() {
   const [timetable, setTimetable] = useState([]);
 
   async function generateTimetable(employeeId) {
@@ -20,7 +20,10 @@ export default function Schedules() {
     }
   }
 
-  useEffect(generateTimetable, [])
+  useEffect(()=> {
+    generateTimetable()
+
+  }, [])
 
   return (
     <div>
