@@ -28,8 +28,9 @@ const [error, setError] = useState(null)
           email,
           password
         }).then(response=>{
-            return localStorage.setItem("user", JSON.stringify(response.data.payload))
-        }).then(()=>  setTimeout(()=>history.replace(from), 300)     
+             localStorage.setItem("user", JSON.stringify(response.data.payload))
+            setTimeout(()=>window.location.reload(), 300) 
+        }    
         ).catch(error=>{
             console.log(error.response)
             setError(error.response.data.error)
