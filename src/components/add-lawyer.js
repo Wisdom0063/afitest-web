@@ -1,7 +1,8 @@
 import React, {useState} from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faKey, faUser, faDollarSign } from '@fortawesome/free-solid-svg-icons'
-export default function AddLawyer({onSubmit}){
+import ErrorAlert from "./error-alert"
+export default function AddLawyer({onSubmit, error}){
 
     const [name, setName] = useState()
     const [email, setEmail] = useState()
@@ -26,6 +27,7 @@ export default function AddLawyer({onSubmit}){
         <div className="form-group col-md-12 d-flex justify-content-center">
      <h4>Add New Lawyer</h4>
       </div>
+      <ErrorAlert error={error} />
       <div className="d-flex justify-content-center mmodal">
         <div style={{width:"400px"}} >
         <div className="form-group col-md-12">

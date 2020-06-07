@@ -7,14 +7,23 @@ import {
   AddProject,
   Timetable,
   Invoice,
+  Logout
 } from "./components";
-import { instance } from "./utils";
+import { axiosInstance } from "./utils";
 
 export default function FinanceHome() {
   const [projects, setProjects] = useState([]);
   const [lawyers, setLawyers] = useState([]);
   const [invoice, setInvoice] = useState([]);
   const [timetable, setTimetable] = useState([]);
+  const [addLawyerError, setAddLawyerError] = useState()
+  const [addProjectError, setAddProjectError] = useState()
+  const [projectName, setProjectName ] = useState()
+  const [lawyerName, setLawyerName ] = useState()
+
+
+
+  const instance = axiosInstance()
 
   /**
    *
@@ -31,7 +40,7 @@ export default function FinanceHome() {
 
   async function getLawyers() {
     try {
-      const response = await instance.get("/employees/lawyers");
+      const response = await instance.get("/employees/law");
       setLawyers(response.data.payload);
       console.log(response);
     } catch (error) {
@@ -53,13 +62,14 @@ export default function FinanceHome() {
   /**
    *
    */
-  async function generateInvoice(projectId) {
+  async function generateInvoice(projectId, project_name) {
     try {
       const response = await instance.get(
-        `/schedules/employees/timetable/${projectId}`
+        `/schedules/projects/invoice/${projectId}`
       );
+      setProjectName(project_name)
       setInvoice(response.data.payload);
-      $("#exampleModal3").modal("toggle");
+      $("#invoice").modal("toggle");
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -77,20 +87,22 @@ export default function FinanceHome() {
       });
       let newProjects = [...projects, response.data.payload];
       setProjects(newProjects);
-      $("#exampleModal2").modal("toggle");
+      $("#addproject").modal("toggle");
       console.log(response);
     } catch (error) {
-      console.error(error);
-    }
+      console.log(error.response)
+      setAddProjectError(error.response.data.error)
+      setTimeout(()=>setAddProjectError(null), 2000)      }
   }
 
-  async function generateTimetable(employeeId) {
+  async function generateTimetable(employeeId, lawyer_name) {
     try {
       const response = await instance.get(
         `/schedules/employees/timetable/${employeeId}`
       );
+      setLawyerName(lawyer_name)
       setTimetable(response.data.payload);
-      $("#exampleModal3").modal("toggle");
+      $("#timetable").modal("toggle");
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -103,23 +115,27 @@ export default function FinanceHome() {
 
   async function addLawyer(name, email, rate) {
     try {
-      const response = await instance.post("/employees", {
+      const response = await instance.post("/employees/law", {
         name,
         email,
         rate,
-        role: "LAWYER",
       });
       let newLawyers = [...lawyers, response.data.payload];
       setLawyers(newLawyers);
-      $("#exampleModalLabel").modal("toggle");
+      $("#addlawyer").modal("toggle");
       console.log(response);
     } catch (error) {
-      console.error(error);
-    }
+      console.log(error.response)
+      setAddLawyerError(error.response.data.error)
+      setTimeout(()=>setAddLawyerError(null), 2000)  
+      }    
   }
 
   return (
     <div>
+      <div className="d-flex justify-content-end">
+        <Logout/>
+      </div>
       <div
         className="d-flex justify-content-center"
         style={{ marginTop: "100px" }}
@@ -142,7 +158,7 @@ export default function FinanceHome() {
                 type="button"
                 className="btn btn-info"
                 data-toggle="modal"
-                data-target="#exampleModal2"
+                data-target="#addproject"
               >
                 Add Project
               </button>
@@ -161,7 +177,7 @@ export default function FinanceHome() {
                   type="button"
                   className="btn btn-info"
                   data-toggle="modal"
-                  data-target="#exampleModal"
+                  data-target="#addlawyer"
                 >
                   Add Lawyer
                 </button>
@@ -173,20 +189,20 @@ export default function FinanceHome() {
         </div>
       </div>
       {/*  */}
-      <Modal id="exampleModal" label="exampleModalLabel">
-        <AddLawyer onSubmit={addLawyer} />
+      <Modal id="addlawyer" label="addlawyer">
+        <AddLawyer onSubmit={addLawyer} error={addLawyerError}/>
       </Modal>
 
-      <Modal id="exampleModal2" label="exampleModalLabel2">
-        <AddProject onSubmit={addProject} />
+      <Modal id="addproject" label="addproject">
+        <AddProject onSubmit={addProject} error={addProjectError}/>
       </Modal>
 
-      <Modal id="exampleModal3" label="exampleModalLabel3">
-        <Timetable data={timetable} />
+      <Modal id="timetable" label="timetable" modalWidth={800}>
+        <Timetable data={timetable} lawyer_name={lawyerName} />
       </Modal>
 
-      <Modal id="exampleModal4" label="exampleModalLabel5">
-        <Invoice data={invoice} />
+      <Modal id="invoice" label="invoice" modalWidth={600}>
+        <Invoice data={invoice} project_name = {projectName} />
       </Modal>
 
       {/*  */}

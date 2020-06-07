@@ -1,5 +1,6 @@
 import React, {useState} from "react"
-export default function addProject({onSubmit}){
+import ErrorAlert from "./error-alert"
+export default function addProject({onSubmit, error}){
     const [name, setName] = useState()
     function handleChange(e){
         setName(e.target.value)
@@ -10,6 +11,7 @@ export default function addProject({onSubmit}){
         <div className="form-group col-md-12 d-flex justify-content-center">
      <h4>Add New Project</h4>
       </div>
+      <ErrorAlert error={error}/>
       <div className="d-flex justify-content-center">
         <div style={{width:"400px"}} >
         <div className="form-group col-md-12">

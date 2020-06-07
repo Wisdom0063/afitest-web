@@ -1,16 +1,16 @@
 import React from "react";
 
-export default function Timetable({ data, isModal = true }) {
+export default function Timetable({ data, isModal = true, id , lawyer_name}) {
   return (
     <div>
       <div className="form-group col-md-12 d-flex justify-content-between">
-        <h4>Lawyer Wisdom Timetable</h4>
+       <h4>{lawyer_name} Timetable</h4>
         {!isModal && (
           <button
             type="button"
             className="btn btn-info"
             data-toggle="modal"
-            data-target="#exampleModal"
+            data-target={id}
           >
             Add New Schedule
           </button>
@@ -66,7 +66,7 @@ export default function Timetable({ data, isModal = true }) {
               importStyle: true,
               printContainer: true,
               //   loadCSS: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
-              pageTitle: "My Modal",
+              pageTitle: `${lawyer_name} Timetable`,
               removeInline: false,
               printDelay: 333,
               header: null,

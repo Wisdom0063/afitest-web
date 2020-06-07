@@ -19,8 +19,8 @@ export default function Lawyers({lawyers, onGenerate}){
               <th scope="row">{lawyer.id}</th>
          <td>{lawyer.name}</td>
          <td>{lawyer.email}</td>
-              <td>@mdo</td>
-              <td>    <button type="button" className="btn btn-outline-secondary" data-toggle="modal"  onClick={()=>onGenerate(lawyer.id)}>Generate</button>
+         <td>{lawyer.rate}</td>
+              <td>    <button type="button" className="btn btn-outline-secondary" data-toggle="modal"  onClick={()=>onGenerate(lawyer.id, lawyer.name)}>Generate</button>
         </td>
         </tr>
             )

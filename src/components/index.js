@@ -5,6 +5,9 @@ import AddLawyer from "./add-lawyer"
 import AddProject from "./add-project"
 import Timetable from "./time-table"
 import Invoice from "./invoice"
+import AddSchedule from "./add-schedule"
+import Logout from "./logout"
+import ErrorAlert from "./error-alert"
 export {
     Modal,
     Projects,
@@ -12,5 +15,8 @@ export {
     AddLawyer,
     AddProject,
     Timetable,
-    Invoice
+    Invoice,
+    AddSchedule,
+    Logout,
+    ErrorAlert
 }
