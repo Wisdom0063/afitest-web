@@ -147,11 +147,11 @@ export default function FinanceHome() {
         style={{ minHeight: "45vh" }}
       >
         <div
-          className="d-flex justify-content-between"
+          className="d-flex justify-content-between row"
           style={{ minWidth: "70vw" }}
         >
           {/* Project */}
-          <div className="" style={{ minWidth: "17vw" }}>
+          <div className="col-lg-3" style={{ minWidth: "250px", width:"17vw"}}>
             <div className="form-group col-md-12 d-flex justify-content-between">
               <h5>Projects</h5>
               <button
@@ -167,12 +167,12 @@ export default function FinanceHome() {
           </div>
           {/* Lawyers */}
           <div
-            className="d-flex justify-content-center align-items-center"
+            className="d-flex justify-content-center align-items-center col-lg-9"
             style={{ width: "50vw" }}
           >
             <div style={{ width: "60vw" }}>
               <div className="form-group col-md-12 d-flex justify-content-between">
-                <h5>Employees</h5>
+                <h5>Lawyers</h5>
                 <button
                   type="button"
                   className="btn btn-info"
